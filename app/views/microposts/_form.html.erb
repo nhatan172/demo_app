@@ -1,0 +1,35 @@
+<%= form_for(micropost) do |f| %>
+  <% if micropost.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(micropost.errors.count, "error") %> prohibited this micropost from being saved:</h2>
+
+      <ul>
+      <% micropost.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :content %>
+    <%= f.text_field :content %>
+  </div>
+
+  <div class="combobox">
+    <% unless User.all.empty? %>
+      <%= f.select(:user_id) do %>
+        <% User.all.each do |c| -%>
+          <%= content_tag(:option, c.name, value: c.id) %>
+        <% end %>
+      <% end %>
+    <% else %>
+      <%= f.select(:user_id, ["Select"])%>
+    <% end %>
+  </div>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
